@@ -4,13 +4,12 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    private string currentColor;
+    public Color currentColor;
     public GameObject bullet;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
-        
+        currentColor = Color.red;
     }
 
     // Update is called once per frame
@@ -18,19 +17,19 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            currentColor = "red";
+            currentColor = Color.red;
             Debug.Log("red");
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            currentColor = "green";
+            currentColor = Color.green;
             Debug.Log("green");
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
-            currentColor = "blue";
+            currentColor = Color.blue;
             Debug.Log("blue");
         }
 
@@ -54,22 +53,5 @@ public class PlayerController : MonoBehaviour
     void Shoot()
     {
         Instantiate(bullet, this.transform.position, Quaternion.identity);
-
-        /*Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-
-        if (Physics.Raycast(ray, out hit))
-        {
-            //we can pass in super-types like super-classes,
-            //abstract classes, and interfaces to GetComponent<SupertypeName>()
-            Enemy objectHit = hit.collider.GetComponent<Enemy>();  //here we pass in an interface
-
-            if (objectHit != null && currentColor == objectHit.currentColor)
-            {
-                //Calls the Die() method on the hit Enemy object
-                objectHit.Die();
-            }
-        }*/
-
     }
 }

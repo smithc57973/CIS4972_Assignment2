@@ -12,12 +12,12 @@ public class HardEnemy : Enemy
     // Start is called before the first frame update
     void Start()
     {
-        
+        StartCoroutine(ColorTimer());
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        MoveForward();
     }
 }

@@ -2,8 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MoveForward : MonoBehaviour
+public class BulletBehaviour : MonoBehaviour
 {
+    PlayerController pc;
+
+    private void Awake()
+    {
+        pc = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+        GetComponent<MeshRenderer>().material.color = pc.currentColor;    
+    }
+
     // Update is called once per frame
     void Update()
     {
