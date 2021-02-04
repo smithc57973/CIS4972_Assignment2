@@ -1,13 +1,21 @@
-﻿using System.Collections;
+﻿/*
+ * Chris Smith
+ * SpawnManager
+ * Assignment 2
+ * A script to manage enemy spawns.
+ */
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
     public GameObject[] enemyPrefabs;
-    private float topBound = 6;
-    private float bottomBound = -4;
+    private float topBound = 11;
+    private float bottomBound = -6.5f;
     private float rightBound = 11;
+    public GameManager gm;
 
     // Update is called once per frame
     void Start()
@@ -29,10 +37,11 @@ public class SpawnManager : MonoBehaviour
     IEnumerator Spawn()
     {
         yield return new WaitForSeconds(1f);
-        while (true)
+        while (!gm.gameOver)
         {
             SpawnRandomEnemy();
-            yield return new WaitForSeconds(1f);
+            int i = Random.Range(0, 5);
+            yield return new WaitForSeconds(i);
         }
     }
 }

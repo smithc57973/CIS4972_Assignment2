@@ -1,26 +1,31 @@
-﻿using System.Collections;
+﻿/*
+ * Chris Smith
+ * Enemy
+ * Assignment 2
+ * An abstract class defining Enemy objects.
+ */
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class Enemy : MonoBehaviour
 {
     public ColorBehaviour colorBehaviour { get; set; }
-    private int health;
-    public string currentColor;
+    public int health;
+    public Color currentColor;
+    private Rigidbody rb;
+    public GameManager gm;
 
-    void Start()
+    public void Awake()
     {
-        //StartCoroutine(ColorTimer());
+        rb = GetComponent<Rigidbody>();
+        gm = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
     }
 
     public void MoveForward()
     {
-        transform.Translate(Vector3.left * Time.deltaTime * 5);
-
-        if (transform.position.x < 0)
-        {
-            Debug.Log("oof");
-        }
+        rb.AddForce(Vector3.left.normalized * Time.deltaTime * 25);
     }
     
     public virtual void DoChangeColor()
@@ -38,16 +43,23 @@ public abstract class Enemy : MonoBehaviour
             {
                 case 0:
                     colorBehaviour = gameObject.AddComponent<ColorRed>();
+                    currentColor = Color.red;
+                    gameObject.layer = LayerMask.NameToLayer("red");
                     break;
                 case 1:
                     colorBehaviour = gameObject.AddComponent<ColorGreen>();
+                    currentColor = Color.green;
+                    gameObject.layer = LayerMask.NameToLayer("green");
                     break;
                 case 2:
                     colorBehaviour = gameObject.AddComponent<ColorBlue>();
+                    currentColor = Color.blue;
+                    gameObject.layer = LayerMask.NameToLayer("blue");
                     break;
                 default:
                     break;
             }
+            DoChangeColor();
             yield return new WaitForSeconds(3);
         }
         

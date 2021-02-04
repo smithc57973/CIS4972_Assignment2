@@ -1,4 +1,11 @@
-﻿using System.Collections;
+﻿/*
+ * Chris Smith
+ * MediumEnemy
+ * Assignment 2
+ * A script to manage medium type enemies.
+ */
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,18 +13,28 @@ public class MediumEnemy : Enemy
 {
     public override void Die()
     {
-        throw new System.NotImplementedException();
+        Destroy(gameObject);
     }
 
     // Start is called before the first frame update
-    void Start()
+    public void Start()
     {
         StartCoroutine(ColorTimer());
+        health = 2;
     }
 
     // Update is called once per frame
-    void Update()
+    public void Update()
     {
         MoveForward();
+        if (health <= 0)
+        {
+            Die();
+        }
+
+        if (transform.position.x < -25)
+        {
+            gm.gameOver = true;
+        }
     }
 }
